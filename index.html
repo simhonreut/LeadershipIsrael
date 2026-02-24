@@ -170,30 +170,41 @@ function parseCSV(text){
   return rows;
 }
 
-/* ===== טעינת CSV ===== */
-csvInput.addEventListener('change', (e)=>{
-  const f = e.target.files && e.target.files[0]; if(!f) return;
-  const r = new FileReader();
-  r.onload = (evt)=>{
-    const data = parseCSV(String(evt.target.result || ''));
-    if(data.length < 2){ alert('קובץ לא תקין'); return; }
+/* ===== טעינת CSV מ-GitHub ===== */
+fetch("data.csv")
+  .then(response => response.text())
+  .then(text => {
+    const data = parseCSV(text);
+    if(data.length < 2){
+      alert('קובץ לא תקין');
+      return;
+    }
+
     const headers = data[0];
     const idIndex    = headers.indexOf('Employee ID');
     const groupIndex = headers.indexOf('Group');
+
     if(idIndex === -1 || groupIndex === -1){
       alert('חובה עמודות Employee ID ו-Group');
       return;
     }
+
     mapping = {};
+
     for(let i=1;i<data.length;i++){
       const email = data[i][idIndex];
       const group = data[i][groupIndex];
-      if(email){ mapping[toKey(email)] = group; }
+      if(email){
+        mapping[toKey(email)] = group;
+      }
     }
+
     csvStatus.innerText = 'נטענו ' + (data.length - 1) + ' רשומות';
-  };
-  r.readAsText(f, 'UTF-8');
-});
+  })
+  .catch(err => {
+    console.error(err);
+    alert("שגיאה בטעינת הנתונים");
+  });
 
 /* ===== יומן מקומי ===== */
 function readLog(){ try{ return JSON.parse(localStorage.getItem('emailLog_prod_v1') || '[]'); }catch(e){ return []; } }
@@ -244,3 +255,4 @@ btnDownload.addEventListener('click', downloadCSV);
 </script>
 </body>
 </html>
+
