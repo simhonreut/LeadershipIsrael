@@ -186,7 +186,67 @@
       padding:18px;
     }
   }
+/* ✅ התאמות ספציפיות לנייד כשהוא באורך (Portrait) */
+@media (orientation: portrait) {
+  /* ריווח כללי קטן יותר בנייד */
+  body {
+    padding: 12px;
+  }
 
+  /* הבאנר: שיהיה רוחבי וגמיש, לא גבוה מדי */
+  .banner {
+    width: 100%;
+    max-width: 480px;   /* מונע ממנו להיות רחב/גבוה מדי */
+    margin: 12px auto 16px auto;
+    border-radius: 8px;
+    display: block;
+    height: auto;       /* חשוב לתמונות/באנרים תמונתיים */
+  }
+
+  /* כרטיסים קומפקטיים יותר */
+  .card {
+    max-width: 480px;
+    padding: 16px;
+    margin: 12px auto;
+    border-radius: 10px;
+  }
+
+  .title {
+    font-size: 18px;    /* כותרת מעט קטנה יותר כדי לא “לדחוף” את העיצוב */
+    margin-bottom: 8px;
+  }
+
+  /* שדות וכפתורים: נמוך ורחב לנוחות אצבע */
+  .main-actions input,
+  .main-actions button {
+    max-width: 100%;
+    padding: 10px 12px;
+    font-size: 15px;
+    height: 40px;       /* גובה עקבי ונוח בנייד */
+  }
+
+  /* אזור “קטן” – ניהול קבצים */
+  .small .title { font-size: 16px; }
+  .small label   { font-size: 12px; margin-bottom: 4px; }
+  .small input[type=file] { max-width: 100%; font-size: 12px; }
+  .small button { padding: 8px 10px; font-size: 12px; }
+
+  .gate { font-size: 12px; max-width: 480px; margin-bottom: 8px; }
+
+  /* חלון קופץ */
+  #overlay .panel {
+    width: 92%;
+    max-width: 360px;
+    padding: 18px;
+  }
+}
+
+/* 💡 אופציונלי: לחזק עוד יותר בניידים צרים + Portrait */
+@media (max-width: 420px) and (orientation: portrait) {
+  .title { font-size: 17px; }
+  .main-actions input,
+  .main-actions button { font-size: 14.5px; height: 38px; }
+}
 </style>
 </head>
 
@@ -386,5 +446,6 @@ btnDownload.addEventListener('click', downloadCSV);
 </script>
 </body>
 </html>
+
 
 
