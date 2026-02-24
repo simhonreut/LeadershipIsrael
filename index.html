@@ -242,7 +242,7 @@ html, body { overflow-x: hidden; -webkit-text-size-adjust: 100%; }
   <!-- אזור ראשי – רישום ובדיקת קבוצה -->
   <div class="card main-actions">
     <h3 class="title">רישום ובדיקת קבוצה</h3>
-    <input type="email" id="email" placeholder="הזיני מייל" />
+    <input type="email" id="email" placeholder="נא להזין מייל" />
     <button id="checkBtn">בדיקת קבוצה</button>
   </div>
 
@@ -397,7 +397,7 @@ checkBtn.addEventListener('click', ()=>{
     showOverlay('בוקר טוב!', 'הינך בקבוצה מספר ' + mapping[k]);
     appendLog(k, mapping[k]);
   }else{
-    showOverlay('לא נמצאה התאמה', 'לא נמצאה קבוצה עבור המייל שהוזן. אנא פני לרעות שמחון.');
+    showOverlay('לא נמצאה התאמה', 'לא נמצאה קבוצה עבור המייל שהוזן. נא לפנות לרעות שמחון.');
     appendLog(k, '');
   }
 });
@@ -425,6 +425,7 @@ btnDownload.addEventListener('click', downloadCSV);
 </script>
 </body>
 </html>
+
 
 
 
