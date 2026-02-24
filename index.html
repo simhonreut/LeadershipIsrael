@@ -322,9 +322,78 @@
   .card     { max-width: 340px; }
   #overlay .panel { max-width: 250px; }
 }
+
+/* 🔶 התחלה: תוספת CSS לניידים ולבאנר – להדביק בסוף ה-<style> */
+
+.page{
+  max-width: 480px;      /* רוחב עמוד "בטוח" לנייד לאורך */
+  width: 100%;
+  margin: 0 auto;
+}
+
+.banner{                 /* הבאנר כתמונה: רספונסיבי ומוגבל בגובה */
+  display: block;
+  width: 100%;
+  max-width: 480px;
+  height: auto;
+  max-height: 120px;     /* אם עדיין גדול לך – נסי 110px/100px */
+  object-fit: contain;
+  margin: 0 auto 16px;
+  border-radius: 8px;
+}
+
+/* כרטיסים/טפסים קומפקטיים */
+.card{
+  max-width: 480px;
+  margin: 12px auto;
+  padding: 16px;
+  border-radius: 10px;
+}
+
+.title{ font-size: 18px; margin-bottom: 8px; }
+
+.main-actions input,
+.main-actions button{
+  max-width: 100%;
+  width: 100%;
+  height: 42px;
+  padding: 10px 12px;
+  font-size: 15px;
+}
+
+.gate{ max-width: 480px; font-size: 12.5px; }
+.small .title{ font-size: 16px; }
+
+/* חלונית קופצת */
+#overlay .panel{
+  width: 92%;
+  max-width: 360px;
+  padding: 18px;
+}
+
+/* דיוק ל-Portrait */
+@media (orientation: portrait){
+  body{ padding: 12px; }
+  .banner{ max-width: 420px; max-height: 110px; margin-bottom: 12px; }
+  .card{ max-width: 420px; padding: 14px; }
+  .main-actions input, .main-actions button{ height: 40px; font-size: 14.5px; }
+  .title{ font-size: 17px; }
+}
+
+/* צר מאוד (טלפונים קטנים) */
+@media (max-width: 360px){
+  .banner{ max-width: 340px; max-height: 96px; }
+  .card{ max-width: 340px; }
+  #overlay .panel{ max-width: 320px; }
+}
+
+/* 🔶 סוף: תוספת CSS */
+``
+  
 </style>
 </head>
 
+  
 <body>
 <!-- התוכן שלך נשאר כמו שהוא -->
 
@@ -521,6 +590,7 @@ btnDownload.addEventListener('click', downloadCSV);
 </script>
 </body>
 </html>
+
 
 
 
