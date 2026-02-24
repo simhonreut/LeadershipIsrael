@@ -251,7 +251,7 @@
 /* עוטף כללי לעמוד – מונע התפזרות ברוחבים צרים */
 .page {
   max-width: 480px;         /* רוחב עמוד בטוח לנייד לאורך */
-  width: 100%;
+  width: 90%;
   margin: 0 auto;
 }
 
@@ -296,8 +296,8 @@
 
 /* חלון קופץ – קיבוע לרוחב צרים */
 #overlay .panel {
-  width: 92%;
-  max-width: 340px;         /* לא יגלוש */
+  width: 80%;
+  max-width: 320px;         /* לא יגלוש */
   padding: 18px;
 }
 
@@ -307,7 +307,7 @@
 
   .banner {
     max-width: 420px;       /* טיפה צר יותר כדי שלא ילחץ */
-    max-height: 100px;      /* ↓ הורידי אם עדיין גדול */
+    max-height: 90px;      /* ↓ הורידי אם עדיין גדול */
     margin-bottom: 12px;
   }
 
@@ -320,7 +320,7 @@
 @media (max-width: 360px) {
   .banner   { max-width: 340px; max-height: 96px; }
   .card     { max-width: 340px; }
-  #overlay .panel { max-width: 320px; }
+  #overlay .panel { max-width: 250px; }
 }
 </style>
 </head>
@@ -521,6 +521,7 @@ btnDownload.addEventListener('click', downloadCSV);
 </script>
 </body>
 </html>
+
 
 
 
