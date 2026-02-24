@@ -247,6 +247,81 @@
   .main-actions input,
   .main-actions button { font-size: 14.5px; height: 38px; }
 }
+
+/* עוטף כללי לעמוד – מונע התפזרות ברוחבים צרים */
+.page {
+  max-width: 480px;         /* רוחב עמוד בטוח לנייד לאורך */
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* באנר תמונה – רספונסיבי ומוגבל בגובה */
+.banner {
+  display: block;
+  width: 100%;
+  max-width: 480px;         /* שלא יחרוג מעבר לעמוד */
+  height: auto;
+  max-height: 120px;        /* ↓ שחקי: 100–140px עד שזה “יושב” */
+  object-fit: contain;      /* שלא ייחתך טקסט בבאנר */
+  margin: 0 auto 16px;
+  border-radius: 8px;
+}
+
+/* כרטיסים וגופנים – קומפקטי בנייד */
+.card {
+  max-width: 480px;
+  margin: 12px auto;
+  padding: 16px;
+  border-radius: 10px;
+}
+
+.title {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+/* שדות וכפתורים */
+.main-actions input,
+.main-actions button {
+  max-width: 100%;
+  width: 100%;
+  height: 42px;             /* אחיד ונוח לנגיעה */
+  padding: 10px 12px;
+  font-size: 15px;
+}
+
+/* Gate/תוויות קטנות */
+.gate { max-width: 480px; font-size: 12.5px; }
+.small .title { font-size: 16px; }
+
+/* חלון קופץ – קיבוע לרוחב צרים */
+#overlay .panel {
+  width: 92%;
+  max-width: 360px;         /* לא יגלוש */
+  padding: 18px;
+}
+
+/* התאמות מדויקות ל-PORTRAIT */
+@media (orientation: portrait) {
+  body { padding: 12px; }
+
+  .banner {
+    max-width: 420px;       /* טיפה צר יותר כדי שלא ילחץ */
+    max-height: 110px;      /* ↓ הורידי אם עדיין גדול */
+    margin-bottom: 12px;
+  }
+
+  .card { max-width: 420px; padding: 14px; }
+  .main-actions input, .main-actions button { height: 40px; font-size: 14.5px; }
+  .title { font-size: 17px; }
+}
+
+/* חגורת בטיחות לרוחבים קטנים מאוד (≤360px) */
+@media (max-width: 360px) {
+  .banner   { max-width: 340px; max-height: 96px; }
+  .card     { max-width: 340px; }
+  #overlay .panel { max-width: 320px; }
+}
 </style>
 </head>
 
@@ -446,6 +521,7 @@ btnDownload.addEventListener('click', downloadCSV);
 </script>
 </body>
 </html>
+
 
 
 
