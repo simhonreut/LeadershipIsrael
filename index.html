@@ -1,15 +1,19 @@
 <!DOCTYPE html>
-
 <html lang="he" dir="rtl">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>בדיקת קבוצה</title>
+
 <style>
   body{
     font-family:system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
-    background:#f4f6f9; margin:0; padding:20px; text-align:center;
+    background:#f4f6f9;
+    margin:0;
+    padding:20px;
+    text-align:center;
   }
+
   /* באנר עליון */
   .banner{
     width:min(900px,95vw);
@@ -20,49 +24,176 @@
 
   /* כרטיס כללי */
   .card{
-    background:#fff; padding:22px; margin:18px auto;
-    max-width:560px; border-radius:12px; box-shadow:0 3px 10px rgba(0,0,0,.08);
+    background:#fff;
+    padding:22px;
+    margin:18px auto;
+    max-width:560px;
+    border-radius:12px;
+    box-shadow:0 3px 10px rgba(0,0,0,.08);
   }
-  .title{ margin:0 0 10px; font-size:22px; }
 
-  /* אזור ראשי – רישום ובדיקת קבוצה (גדול) */
-  .main-actions input, .main-actions button{
-    width:100%; max-width:360px; padding:12px 14px; margin:8px auto;
-    display:block; border-radius:8px; font-size:16px;
+  .title{
+    margin:0 0 10px;
+    font-size:22px;
   }
-  .main-actions input{ border:1px solid #c9cdd1; }
-  .main-actions button{ background:#0078d4; color:#fff; border:0; cursor:pointer; }
-  .main-actions button:hover{ opacity:.92; }
 
-  /* אזור משני – ניהול קבצים (קטן) */
+  /* אזור ראשי – רישום ובדיקת קבוצה */
+  .main-actions input,
+  .main-actions button{
+    width:100%;
+    max-width:360px;
+    padding:12px 14px;
+    margin:8px auto;
+    display:block;
+    border-radius:8px;
+    font-size:16px;
+  }
+
+  .main-actions input{
+    border:1px solid #c9cdd1;
+  }
+
+  .main-actions button{
+    background:#0078d4;
+    color:#fff;
+    border:0;
+    cursor:pointer;
+  }
+
+  .main-actions button:hover{
+    opacity:.92;
+  }
+
+  /* אזור משני – ניהול קבצים */
   .small .title{ font-size:18px; }
-  .small label{ display:block; font-weight:600; margin-bottom:6px; font-size:13px; color:#222; }
-  .small input[type=file]{ width:100%; max-width:280px; font-size:12px; }
-  .small button{ padding:8px 10px; font-size:12px; background:#0ea5e9; color:#fff; border:0; border-radius:7px; cursor:pointer; }
-  .status{ font-size:12px; margin-top:6px; color:#4b5563; }
 
-  /* שליטה בהצגה */
+  .small label{
+    display:block;
+    font-weight:600;
+    margin-bottom:6px;
+    font-size:13px;
+    color:#222;
+  }
+
+  .small input[type=file]{
+    width:100%;
+    max-width:280px;
+    font-size:12px;
+  }
+
+  .small button{
+    padding:8px 10px;
+    font-size:12px;
+    background:#0ea5e9;
+    color:#fff;
+    border:0;
+    border-radius:7px;
+    cursor:pointer;
+  }
+
+  .status{
+    font-size:12px;
+    margin-top:6px;
+    color:#4b5563;
+  }
+
   .hidden{ display:none !important; }
 
-  /* Overlay להודעה */
+  /* Overlay */
   #overlay{
-    position:fixed; inset:0; background:rgba(0,0,0,.5);
-    display:none; align-items:center; justify-content:center;
-  }
-  #overlay .panel{
-    background:#fff; padding:25px; border-radius:12px;
-    max-width:420px; width:90%; text-align:center; box-shadow:0 10px 30px rgba(0,0,0,.35);
-  }
-  #closeBtn{
-    margin-top:14px; background:#334155; color:#fff; border:0; padding:10px 14px; border-radius:8px; cursor:pointer;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.5);
+    display:none;
+    align-items:center;
+    justify-content:center;
   }
 
-  /* סרגל “פתיחת ניהול קבצים” – קטן ועדין */
-  .gate{ margin:0 auto 6px auto; max-width:560px; color:#475569; font-size:13px; }
-  .gate button{ padding:6px 10px; font-size:12px; background:#64748b; color:#fff; border:0; border-radius:6px; cursor:pointer; }
+  #overlay .panel{
+    background:#fff;
+    padding:25px;
+    border-radius:12px;
+    max-width:420px;
+    width:90%;
+    text-align:center;
+    box-shadow:0 10px 30px rgba(0,0,0,.35);
+  }
+
+  #closeBtn{
+    margin-top:14px;
+    background:#334155;
+    color:#fff;
+    border:0;
+    padding:10px 14px;
+    border-radius:8px;
+    cursor:pointer;
+  }
+
+  /* סרגל ניהול קבצים */
+  .gate{
+    margin:0 auto 6px auto;
+    max-width:560px;
+    color:#475569;
+    font-size:13px;
+  }
+
+  .gate button{
+    padding:6px 10px;
+    font-size:12px;
+    background:#64748b;
+    color:#fff;
+    border:0;
+    border-radius:6px;
+    cursor:pointer;
+  }
+
+  /* ✅ ✅ ✅ התאמה לניידים ✅ ✅ ✅ */
+  @media (max-width: 480px){
+
+    body{
+      padding:12px;
+    }
+
+    .banner{
+      margin-bottom:16px;
+      border-radius:8px;
+    }
+
+    .card{
+      padding:16px;
+      margin:14px auto;
+    }
+
+    .title{
+      font-size:18px;
+    }
+
+    .main-actions input,
+    .main-actions button{
+      font-size:15px;
+      padding:10px 12px;
+    }
+
+    .small .title{
+      font-size:16px;
+    }
+
+    .gate{
+      font-size:12px;
+    }
+
+    #overlay .panel{
+      padding:18px;
+    }
+  }
+
 </style>
 </head>
+
 <body>
+<!-- התוכן שלך נשאר כמו שהוא -->
+
+
 
   
 <!-- באנר -->
@@ -255,4 +386,5 @@ btnDownload.addEventListener('click', downloadCSV);
 </script>
 </body>
 </html>
+
 
