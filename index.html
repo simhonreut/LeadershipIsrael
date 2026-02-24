@@ -159,7 +159,72 @@
   @media (max-width: 360px){
     .banner{ max-height: 96px; }
     #overlay .panel{ max-width: 320px; }
+}
+
+/* ===== תיקון מאוחד לאייפון/נייד ===== */
+
+/* מונע גלישה אופקית ו”הפתעות” של מרווחים */
+html, body { overflow-x: hidden; -webkit-text-size-adjust: 100%; }
+*, *::before, *::after { box-sizing: border-box; }
+
+/* בנייד לאורך – מרכזים ומגבילים רוחב */
+@media (orientation: portrait) {
+
+  /* הבאנר: רספונסיבי, לא גבוה מדי, ממורכז */
+  .banner {
+    display: block;
+    width: 100%;
+    max-width: 420px;    /* אפשר להעלות ל-440px אם קטן מדי */
+    height: auto;
+    max-height: 100px;   /* ↓ אם עדיין גדול – נסי 96px/90px */
+    object-fit: contain;
+    margin: 12px auto 14px;
+    border-radius: 8px;
   }
+
+  /* הכרטיסים והסרגלים: ממורכזים ורוחב בטוח לנייד */
+  .card, .gate {
+    max-width: 420px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* שדה המייל והכפתור: לא “בורחים” מהכרטיס */
+  .main-actions { padding-inline: 8px; } /* נשימה בצדדים במסכים צרים */
+  .main-actions input,
+  .main-actions button {
+    width: 100%;
+    max-width: none;          /* מבטל 360px שמגביל בנייד */
+    box-sizing: border-box;   /* כולל padding+border בתוך ה-100% */
+    height: 44px;             /* נוח לאצבע, שומר על 16px למניעת zoom באייפון */
+    font-size: 16px;
+    padding: 10px 12px;
+  }
+  .main-actions input {
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  /* כותרות וטיפוגרפיה קומפקטיות יותר */
+  .title { font-size: 18px; margin-bottom: 8px; }
+  .gate  { font-size: 12.5px; }
+
+  /* חלונית קופצת – תמיד ממורכזת ובתוך המסך */
+  #overlay { display: flex; align-items: center; justify-content: center; }
+  #overlay .panel {
+    width: 92vw;          /* רוחב יחסי למסך */
+    max-width: 360px;     /* לא “תשבור” לצדדים */
+    padding: 18px;
+  }
+}
+
+/* טלפונים צרים במיוחד (עד ~360px) – עוד “קיפול” קטן */
+@media (max-width: 360px) and (orientation: portrait) {
+  .banner       { max-width: 340px; max-height: 92px; }
+  .card, .gate  { max-width: 340px; }
+  #overlay .panel { max-width: 320px; }
+}
+
 </style>
 </head>
 
@@ -360,6 +425,7 @@ btnDownload.addEventListener('click', downloadCSV);
 </script>
 </body>
 </html>
+
 
 
 
