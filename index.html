@@ -342,7 +342,7 @@
         });
 
         if (!res.ok) throw new Error('Formspree error');
-        if (saveStatus) saveStatus.textContent = 'נשמר בענן ✅';
+        if (saveStatus) saveStatus.textContent = 'נרשם בהצלחה ✅';
       } catch (e) {
         console.error(e);
         if (saveStatus) saveStatus.textContent = 'שמירה מקומית בוצעה; שמירה לענן נכשלה';
@@ -390,4 +390,5 @@
   </script>
 </body>
 </html>
+
 
