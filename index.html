@@ -244,6 +244,7 @@ html, body { overflow-x: hidden; -webkit-text-size-adjust: 100%; }
     <h3 class="title">רישום ובדיקת קבוצה</h3>
     <input type="email" id="email" placeholder="נא להזין מייל" />
     <button id="checkBtn">בדיקת קבוצה</button>
+    <div id="saveStatus" class="status"></div>
   </div>
 
   <!-- כפתור הצגת ניהול קבצים (מוגן בסיסמה) -->
@@ -295,7 +296,15 @@ const overlay = $('#overlay');
 const msgTitle = $('#msgTitle');
 const msgText  = $('#msgText');
 const closeBtn = $('#closeBtn');
+checkBtn.addEventListener('click', async () => {
+  const val = emailEl.value;
+  if (!val || !val.trim()) { alert('נא להזין מייל תקין'); return; }
 
+  const k = toKey(val);
+  const group = mapping[k] || '';
+/* ✅ Formspree endpoint (החליפי ל-ID האמיתי שלך) */
+const FORMSPREE_URL = 'https://formspree.io/f/https://formspree.io/f/xdalyqon // ← להחליף לכתובת שלך
+const saveStatus = document.querySelector('#saveStatus');
 /* ===== עוזרים ===== */
 const toKey = s => (s || '').trim().toLowerCase();
 
@@ -387,20 +396,57 @@ function appendLog(email, group){
   log.push({timestamp:ts, email, group});
   writeLog(log);
 }
-
-/* ===== בדיקת קבוצה (גדול) ===== */
-checkBtn.addEventListener('click', ()=>{
-  const val = emailEl.value;
-  if(!val || !val.trim()){ alert('נא להזין מייל תקין'); return; }
-  const k = toKey(val);
-  if(mapping[k]){
-    showOverlay('בוקר טוב!', 'הינך בקבוצה מספר ' + mapping[k]);
-    appendLog(k, mapping[k]);
-  }else{
-    showOverlay('לא נמצאה התאמה', 'לא נמצאה קבוצה עבור המייל שהוזן. נא לפנות לרעות שמחון.');
-    appendLog(k, '');
+/* ✅ שליחת ההזנה ל-Formspree (ענן) */
+async function sendToFormspree(email, group) {
+  if (!FORMSPREE_URL || FORMSPREE_URL.includes('ABCDWXYZ')) {
+    // אם שכחנו להכניס כתובת אמיתית, לא נעשה כלום
+    return;
   }
+  try {
+    if (saveStatus) saveStatus.textContent = 'שומר...';
+
+    const fd = new FormData();
+    fd.append('email', email);
+    fd.append('group', group || '');
+    fd.append('timestamp', new Date().toISOString());
+    // fd.append('_honeypot',''); // אופציונלי: שדה דמה לספאם
+
+    const res = await fetch(FORMSPREE_URL, {
+      method: 'POST',
+      headers: { 'Accept': 'application/json' },
+      body: fd
+    });
+
+    if (!res.ok) throw new Error('Formspree error');
+
+    if (saveStatus) saveStatus.textContent = 'נשמר בענן ✅';
+  } catch (e) {
+    console.error(e);
+    if (saveStatus) saveStatus.textContent = 'שמירה מקומית בוצעה; שמירה לענן נכשלה';
+  }
+}
+  
+/* ===== בדיקת קבוצה (גדול) ===== */
+checkBtn.addEventListener('click', async () => {
+  const val = emailEl.value;
+  if (!val || !val.trim()) { alert('נא להזין מייל תקין'); return; }
+
+  const k = toKey(val);
+  const group = mapping[k] || '';
+
+  if (mapping[k]) {
+    showOverlay('בוקר טוב!', 'הינך בקבוצה מספר ' + group);
+  } else {
+    showOverlay('לא נמצאה התאמה', 'לא נמצאה קבוצה עבור המייל שהוזן. נא לפנות לרעות שמחון.');
+  }
+
+  // ✅ קודם שומרים מקומית (כבר היה)
+  appendLog(k, group);
+
+  // ✅ ואז שולחים לענן (Formspree)
+  await sendToFormspree(k, group);
 });
+  
 emailEl.addEventListener('keydown', (e)=>{ if(e.key==='Enter') checkBtn.click(); });
 
 /* ===== הורדת קובץ נרשמים (קטן) ===== */
@@ -425,6 +471,7 @@ btnDownload.addEventListener('click', downloadCSV);
 </script>
 </body>
 </html>
+
 
 
 
